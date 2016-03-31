@@ -1,22 +1,23 @@
 #include "Game.h"
-#include <stdio.h>
-
+#include <iostream>
+#include "Player.h"
 TextureManager textureManager;
 
-Game::Game() {
+Game::Game() { //initialize 'Game' data members
 	mWindow = NULL;
 	mRenderer = NULL;
-	mcurrentFrame = 0;
+	mCurrentFrame = 0;
 }
 
 bool Game::init(const char* title, int x, int y, int width, int height, int flags) {
 	mRunning = true; //game loop starts
+
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 		mWindow = SDL_CreateWindow(title, x, y, width, height, flags);
 		//If window is not created
 		if (mWindow != NULL) {
 			cout << "Window creation successful!" << endl;
-			mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+			mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); //hardware accelerated, vsync enabled
 				if (mRenderer != NULL) {
 					cout << "Renderer creation successful!" << endl;
 				}
@@ -30,26 +31,28 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
 			return false;
 		}
 	}
-	textureManager.load("images/background.png", "background", mRenderer);
-	//textureManager.load("images/stand.png", "stand", mRenderer);
-	textureManager.load("images/runAni.png", "running", mRenderer);
+	textureManager.load("images/runAni.png", "animate", mRenderer);
+	mGameObjects.push_back(new Player(new LoaderParams(100, 100, 46, 66, "animate", 1, 1)));
 	return mRunning;
 }
 
 void Game::render() {
-	//SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 0xFF);
 	SDL_RenderClear(mRenderer);
-	textureManager.draw("background", 0, 0, 800, 600, mRenderer);
-	//textureManager.drawFrame("stand", 50, 50, 46, 66, 1, mcurrentFrame, mRenderer);
-	textureManager.drawFrame("running", 400, 300, 46, 66, 1, mcurrentFrame, mRenderer);
+	textureManager.drawFrame("animate", 200, 200, 46, 66, 1, mCurrentFrame, mRenderer);
+	for (std::vector<GameObject*>::size_type i = 0; i != mGameObjects.size(); i++) {
+		mGameObjects[i]->render();
+	}
 	SDL_RenderPresent(mRenderer);
 }
 
 void Game::update() {
-	mcurrentFrame = int(((SDL_GetTicks() / 100) % 6));
+	mCurrentFrame = int(((SDL_GetTicks() / 100) % 6));
+	for (std::vector<GameObject*>::size_type i = 0; i != mGameObjects.size(); i++) {
+		mGameObjects[i]->update();
+	}
 }
 
-//void Game::handleInputs() { } //has own class to handle inputs
+void Game::handleInputs() { } //handle player movement here
 
 void Game::close() {
 	cout << "Closing game!" << endl;

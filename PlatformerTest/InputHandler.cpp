@@ -1,5 +1,6 @@
 #include "InputHandler.h"
 #include "Game.h"
+#include <iostream>
 
 InputHandler::InputHandler() : mkeyStates(0) {
 
@@ -13,6 +14,7 @@ void InputHandler::update() {
 			cout << "Closing Game!!" << endl;
 			SDL_Quit();
 		}
+
 	}
 }
 

@@ -1,12 +1,11 @@
 #include "TextureManager.h"
 #include <iostream>
 
-
 TextureManager::TextureManager() {
 
 }
 
-bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer *mRenderer) {
+bool TextureManager::load(std::string fileName, std::string textureID, SDL_Renderer *mRenderer) {
 	SDL_Surface *tempSurface = IMG_Load(fileName.c_str());
 	if (tempSurface == 0) {
 		std::cerr << "IMG_Load error: " << SDL_GetError() << std::endl;
@@ -15,7 +14,7 @@ bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer *mR
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(mRenderer, tempSurface);
 	SDL_FreeSurface(tempSurface);
 	if (texture != 0) {
-		mtextureMap[id] = texture;
+		mtextureMap[textureID] = texture;
 		return true;
 	}
 	return false;
@@ -50,3 +49,4 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
 void TextureManager::clearFromTextureMap(std::string id) {
 	mtextureMap.erase(id);
 }
+
