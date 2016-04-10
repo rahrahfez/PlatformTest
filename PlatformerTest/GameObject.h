@@ -11,7 +11,7 @@ public:
 	virtual void update() = 0;
 	virtual void clean() = 0;
 protected:
-	GameObject() {}
+	GameObject(const LoaderParams* pParams) {}
 	virtual ~GameObject() {}
 };
 

@@ -1,14 +1,6 @@
 #include "SDLGameObject.h"
-#include "TextureManager.h"
-#include "Game.h"
 
-SDLGameObject::SDLGameObject() : GameObject() {
-	
-}
-
-SDLGameObject::~SDLGameObject() {}
-
-void SDLGameObject::load(const LoaderParams* pParams) {
+SDLGameObject::SDLGameObject(const LoaderParams* pParams) : GameObject(pParams) {
 	mX = pParams->getX();
 	mY = pParams->getY();
 	mWidth = pParams->getWidth();
@@ -18,8 +10,10 @@ void SDLGameObject::load(const LoaderParams* pParams) {
 	mCurrentFrame = 1;
 }
 
+SDLGameObject::~SDLGameObject() {}
+
 void SDLGameObject::render() {
-	//textureManager.drawFrame(mTextureID, mX, mY, mWidth, mHeight, mCurrentRow, mCurrentFrame, game.getRenderer());
+	//textureManager->drawFrame(mTextureID, mX, mY, mWidth, mHeight, mCurrentRow, mCurrentFrame, game->getRenderer());
 }
 
 void SDLGameObject::update() {

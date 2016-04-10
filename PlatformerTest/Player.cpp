@@ -1,14 +1,10 @@
 #include "Player.h"
 
-Player::Player(const LoaderParams* pParams) : SDLGameObject() {
-
+Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {
+	
 }
 
 Player::~Player() {}
-
-void Player::load(const LoaderParams* pParams) {
-	SDLGameObject::load(pParams);
-}
 
 void Player::render() {
 	SDLGameObject::render();

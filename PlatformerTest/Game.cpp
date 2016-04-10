@@ -31,13 +31,15 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
 			return false;
 		}
 	}
-	textureManager.load("images/runAni.png", "animate", mRenderer);
-	mGameObjects.push_back(new Player(new LoaderParams(100, 100, 46, 66, "animate", 1, 1)));
+	textureManager.load("images/background.png", "background", mRenderer); //loads background
+	textureManager.load("images/runAni.png", "animate", mRenderer); // loads player texture
+	mGameObjects.push_back(new Player(new LoaderParams(100, 100, 46, 66, "animate", 1, 1))); //adds player to vector
 	return mRunning;
 }
 
 void Game::render() {
 	SDL_RenderClear(mRenderer);
+	textureManager.draw("background", 1, 1, SCREEN_WIDTH, SCREEN_HEIGHT, mRenderer);
 	textureManager.drawFrame("animate", 200, 200, 46, 66, 1, mCurrentFrame, mRenderer);
 	for (std::vector<GameObject*>::size_type i = 0; i != mGameObjects.size(); i++) {
 		mGameObjects[i]->render();

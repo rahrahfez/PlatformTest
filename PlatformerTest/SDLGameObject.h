@@ -5,9 +5,8 @@
 
 class SDLGameObject : public GameObject {
 public:
-	SDLGameObject();
+	SDLGameObject(const LoaderParams* pParams);
 	virtual ~SDLGameObject();
-	virtual void load(const LoaderParams* pParams);
 	virtual void render();
 	virtual void update();
 	virtual void clean();
