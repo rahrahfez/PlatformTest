@@ -6,34 +6,50 @@ to create the game.
 #pragma once
 #include <SDL.h>
 #include <vector>
-#include <memory>
 #include "GameObject.h"
-#include "TextureManager.h"
-#include "Player.h"
-using namespace std;
 
+using namespace std;
 
 class Game {
 public:
 	Game();
+	static const int LEVEL_WIDTH = 1280; //size of the level/background image
+	static const int LEVEL_HEIGHT = 960;
 	
-	static const int SCREEN_WIDTH = 800; //global data member throughout class
+	static const int SCREEN_WIDTH = 800; //size of camera
 	static const int SCREEN_HEIGHT = 600;
+
+	static Game* Instance() {
+		if (s_Instance == 0) {
+			s_Instance = new Game();
+			return s_Instance;
+		}
+		return s_Instance;
+	}
 	
 	bool init(const char* title, int x, int y, int width, int height, int flags);
 	void render();
 	void update();
 	void handleInputs();
 	void close();
-	bool running() { return mRunning; }
-	SDL_Renderer *getRenderer() const { return mRenderer; }
+	bool running() { return m_running; }
+
+	int getGameWidth() const { return m_gameWidth; }
+	int getGameHeight() const { return m_gameHeight; }
+
+	SDL_Renderer* getRenderer() const { return mRenderer; }
 private:
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
-	int mCurrentFrame;
-	bool mRunning;
-	std::vector<GameObject*> mGameObjects;
+
+	int m_gameWidth;
+	int m_gameHeight;
+	bool m_running;
+
+	std::vector<GameObject*> m_gameObjects;
+	static Game* s_Instance;
 };
+typedef Game Game;
 
 
 

@@ -4,17 +4,21 @@ renders/updates/animates player
 handles input
 */
 #pragma once
-#include <SDL.h>
+#include "Vector2D.h"
 #include "SDLGameObject.h"
+#include "LoaderParams.h"
 
 class Player : public SDLGameObject {
 public:
-	Player(const LoaderParams* pParams);
+	Player();
 	virtual ~Player();
-	virtual void render();
-	virtual void update();
-	virtual void clean();
-	virtual void handleInput(SDL_Event &e);
+	void load(const LoaderParams &pParams);
+	void render();
+	void update();
+	void clean();
+	void handleInput();
 private:	
+	void handleAnimation();
+	void handleMovement(Vector2D velocity);
 };
 

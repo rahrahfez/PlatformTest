@@ -13,6 +13,6 @@ public:
 	void update();
 	bool isKeyDown(SDL_Scancode key);
 private:
-	const Uint8 *mkeyStates;
+	const Uint8* m_keyStates;
 };
 

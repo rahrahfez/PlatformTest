@@ -1,23 +1,21 @@
 //Dervived from GameObject abstract base class
 //handles all objects on in game
+//this is a test
 #pragma once
 #include "GameObject.h"
+#include "LoaderParams.h"
+
 
 class SDLGameObject : public GameObject {
 public:
-	SDLGameObject(const LoaderParams* pParams);
 	virtual ~SDLGameObject();
+
+	virtual void load(LoaderParams &pParams);
 	virtual void render();
 	virtual void update();
 	virtual void clean();
 protected:
-	int mX;
-	int mY;
-	int mWidth;
-	int mHeight;
-	int mCurrentRow;
-	int mCurrentFrame;
-	std::string mTextureID;
+	SDLGameObject();	
 private:
 };
 

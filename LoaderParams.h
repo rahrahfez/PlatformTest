@@ -6,22 +6,25 @@ Nests all load settings to one class, textures and game objects will pass these 
 
 class LoaderParams {
 public:
-	LoaderParams(int x, int y, int width, int height, std::string textureID, int numFrames, int animSpeed);
+	LoaderParams(int x, int y, int width, int height, std::string textureID) :
+		m_x(x),
+		m_y(y),
+		m_width(width),
+		m_height(height),
+		m_textureID(textureID) {}
 	//Const Getters
-	int getX() const;
-	int getY() const;
-	int getWidth() const;
-	int getHeight() const;
-	int getNumFrames() const;
-	int getAnimSpeed() const;
-	std::string getTextureID() const;
+	int getX() const { return m_x; }
+	int getY() const { return m_y; }
+	int getWidth() const { return m_width; }
+	int getHeight() const { return m_height; }
+	std::string getTextureID() const { return m_textureID; }
 private:
-	int mX;
-	int mY;
-	int mWidth;
-	int mHeight;
-	int mNumFrames;
-	int mAnimSpeed;
-	std::string mTextureID;
+	int m_x;
+	int m_y;
+
+	int m_width;
+	int m_height;
+
+	std::string m_textureID;
 };
 
